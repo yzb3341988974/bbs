@@ -9,16 +9,31 @@
  */
 include_once '../inc/config.inc.php';
 include_once '../inc/mysql.inc.php';
+include_once '../inc/tool.inc.php';
 
 $link=connect();
 
 //var_dump(mysqli_fetch_all($result,MYSQLI_ASSOC));
+if (isset($_POST['submit'])){
+    foreach ($_POST['sort'] as $key=>$val){
+        if (!is_numeric($key)||!is_numeric($val)){
+            skip('father_module.php','error','请输入数字');
+        }
+        $query[]="update yzb_father_module set sort={$val} where id={$key}";
+    }
+    if (execute_multi($link,$query,$error)){
+        skip('father_module.php','ok','排序修改成功');
+    }else{
+        skip('father_module.php','error',$error);
 
+    }
+
+}
 ?>
 <?php include 'inc/header.inc.php';?>
 <div id="main" style="height:1000px;">
     <div class="title">父板块列表</div>
-
+    <form method="post">
     <table class="list">
         <tr>
             <th>排序</th>
@@ -38,7 +53,7 @@ $link=connect();
             $delete_url="confirm.php?url={$url}&return_url={$return_url}&message={$message}";
             $html=<<<a
             <tr>
-            <td><input class="sort" type="text" name="sort" /></td>
+            <td><input class="sort" type="text" name="sort[{$data['id']}]" value="{$data['sort']}"/></td>
             <td>{$data['module_name']}[id:{$data['id']}]</td>
 
             <td><a href="#">[访问]</a>&nbsp;&nbsp;<a href="father_module_update.php?id={$data['id']}">[编辑]</a>&nbsp;&nbsp;<a href="$delete_url">[删除]</a></td>
@@ -50,6 +65,7 @@ a;
 
 
     </table>
-
-
+    <input style="margin-top: 10px;cursor: pointer" class="btn" type="submit" name="submit" value="排序" />
+    </form>
+</div>
 <?php include "inc/footer.inc.php";?>

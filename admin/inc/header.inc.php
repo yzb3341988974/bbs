@@ -23,8 +23,8 @@
         管理中心
     </div>
     <ul class="nav">
-        <li><a href="http://www.sifangku.com" target="_blank">YZB</a></li>
-        <li><a href="http://www.sifangku.com" target="_blank">YZB</a></li>
+        <li><a href="" target="_blank">YZB</a></li>
+        <li><a href="" target="_blank">YZB</a></li>
     </ul>
     <div class="login_info">
         <a href="#" style="color:#fff;">网站首页</a>&nbsp;|&nbsp;
@@ -48,8 +48,18 @@
             <ul class="child">
                 <li><a <?php if (basename($_SERVER['SCRIPT_NAME'])=='father_module.php'){echo 'class="current" ';}?> href="father_module.php">父板块列表</a></li>
                 <li><a <?php if (basename($_SERVER['SCRIPT_NAME'])=='father_module_add.php'){echo 'class="current" ';}?>  href="father_module_add.php">添加父板块</a></li>
-                <li><a href="#">子板块列表</a></li>
-                <li><a href="#">添加子板块</a></li>
+                <?php
+                if (basename($_SERVER['SCRIPT_NAME'])=='father_module_update.php'){
+                   echo "<li><a  class='current'>修改父板块</a></li>";
+                }
+                ?>
+                <li><a <?php if (basename($_SERVER['SCRIPT_NAME'])=='son_module.php'){echo 'class="current" ';}?> href="son_module.php">子板块列表</a></li>
+                <li><a <?php if (basename($_SERVER['SCRIPT_NAME'])=='son_module_add.php'){echo 'class="current" ';}?>href="son_module_add.php">添加子板块</a></li>
+                <?php
+                if (basename($_SERVER['SCRIPT_NAME'])=='son_module_update.php'){
+                    echo "<li><a  class='current'>修改子板块</a></li>";
+                }
+                ?>
                 <li><a href="#">帖子管理</a></li>
             </ul>
         </li>

@@ -16,25 +16,17 @@ if (!isset($_GET['id'])|| !is_numeric($_GET['id'])){//不是数字字符串
 }
 //var_dump(mysqli_fetch_all($result,MYSQLI_ASSOC));
 //var_dump($_GET);
-$query=" select *from yzb_son_module where father_module_id={$_GET['id']}";
-$result=execute($link,$query);
-if (mysqli_num_rows($result)==1){
-    skip('father_module.php','error','该父板块下有子版块，请先将子板块删除!');
-}
-
-
-
-$query=" delete from yzb_father_module where id={$_GET['id']}";
+$query=" delete from yzb_son_module where id={$_GET['id']}";
 //var_dump($query);
 //skip('father_module.php','ok',"恭喜你跳转成功");
 $result=execute($link,$query);
 
 if (mysqli_affected_rows($link)==1){
-    skip('father_module.php','ok',"恭喜删除成功");
+    skip('son_module.php','ok',"恭喜你跳转成功");
 
 }
 else{
-    skip('father_module.php','error',"删除失败请重试");
+    skip('son_module.php','error',"删除失败请重试");
 
 }
 
